@@ -1,0 +1,26 @@
+{% load static %}
+{% load static tailwind_tags %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Example website</title>
+    {% tailwind_css %}
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <script defer src="{% static 'js/index.js' %}"></script>
+</head>
+<body
+        data-host="{{ request.get_host }}"
+        data-scheme="{{ request.scheme }}"
+>
+<header>
+    <nav id="nav" class="nav">{% include 'components/navbar.html' %}</nav>
+</header>
+    <div class="container">
+
+        <main id="main">{% include page %}</main>
+        <footer class="footer">My footer</footer>
+    </div>
+</body>
+</html>
