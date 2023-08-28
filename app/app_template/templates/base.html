@@ -1,5 +1,5 @@
-{% load static %}
 {% load static tailwind_tags %}
+{% load static %}
 <!doctype html>
 <html lang="en">
 <head>
@@ -8,8 +8,10 @@
     <title>Example website</title>
     {% tailwind_css %}
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="{% static 'js/index.js' %}"></script>
 </head>
+
 <body
         data-host="{{ request.get_host }}"
         data-scheme="{{ request.scheme }}"
@@ -17,10 +19,24 @@
 <header>
     <nav id="nav" class="nav">{% include 'components/navbar.html' %}</nav>
 </header>
-    <div class="container">
 
-        <main id="main">{% include page %}</main>
-        <footer class="footer">My footer</footer>
-    </div>
+
+
+
+{% comment %} {% include 'components/carousel.html'  %} {% endcomment %}
+
+
+{% include 'components/list.html'  %}
+     <main id="main">
+
+
+    {% include page %}</main>
+
+
+
+
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
 </body>
 </html>

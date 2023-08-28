@@ -147,6 +147,8 @@ myWebSocket.addEventListener("message", (event) => {
         selector.innerHTML = data.html;
     }
     // Update URL
+
+
     history.pushState({}, '', data.url)
     /**
      *  Reassigns the events of the newly rendered HTML

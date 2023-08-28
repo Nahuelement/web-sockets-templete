@@ -66,6 +66,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                 "app.app_template.context_processors.category"
             ],
         },
     },
@@ -119,9 +120,7 @@ USE_I18N = True
 
 USE_TZ = True
 
-INTERNAL_IPS = [
-    "127.0.0.1",
-]
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
@@ -162,5 +161,8 @@ ASGI_APPLICATION = "project_template.asgi.application"
 AUTHENTICATION_BACKENDS = (
     'app.app_template.backends.EmailBackend',
 )
-
 TAILWIND_APP_NAME = 'theme'
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+]

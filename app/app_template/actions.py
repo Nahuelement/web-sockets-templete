@@ -6,38 +6,48 @@ from channels.auth import login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from datetime import datetime
+from .models import Category
 
 
 def send_page(self, page):
     """Render HTML and send page to client"""
 
     # Prepare context data for page
-    context = {}
-    match page:
-        case "home":
-            context = {"tasks": self.scope["session"]["tasks"]
-                       if "tasks" in self.scope["session"] else []}
-        case "login":
-            context = {"form": LoginForm()}
-        case "signup":
-            context = {"form": SignupForm()}
 
-    # Add user to context if logged in
-    if "user" in self.scope:
-        context.update({"user": self.scope["user"]})
-    context.update({"active_nav": page})
+    if page in Category.objects.all().values_list("name", flat=True):
+        context = {"tasks": self.scope["session"]["tasks"]
+                   if "tasks" in self.scope["session"] else [],
+                   "category": Category.objects.get(name=page),
+                   'categories':Category.objects.all(),
+                   }
+
+    else:
+        match page:
+            case "home":
+                context = {"tasks": self.scope["session"]["tasks"]
+                        if "tasks" in self.scope["session"] else []}
+            case "login":
+                context = {"form": LoginForm()}
+            case "signup":
+                context = {"form": SignupForm()}
+
+        # Add user to context if logged in
+        if "user" in self.scope:
+            context.update({"user": self.scope["user"]})
+        context.update({"active_nav": page})
 
     # Render HTML nav and send to client
     self.send_html({
         "selector": "#nav",
-        "html": render_to_string("components/_nav.html", context),
+        "html": render_to_string("components/navbar.html", context),
     })
 
     # Render HTML page and send to client
     self.send_html({
         "selector": "#main",
-        "html": render_to_string(f"pages/{page}.html", context),
-        "url": reverse(page),
+        "html": render_to_string(f"pages/home.html", context),
+        "url": reverse('category',
+                       args=[Category.objects.get(name=page).slug])
     })
 
 

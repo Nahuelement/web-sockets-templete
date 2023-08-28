@@ -14,3 +14,9 @@ RUN  pip install --upgrade pip
 COPY requirements.txt ./requirements.txt
 ## Install requirements
 RUN pip3 install -r requirements.txt
+
+COPY setup_14.sh ./setup_14.sh
+
+RUN apt-get update && bash setup_14.sh && apt-get install -y nodejs npm
+
+RUN npm install -D tailwindcss 

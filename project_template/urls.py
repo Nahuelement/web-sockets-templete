@@ -18,11 +18,15 @@ from django.urls import path
 from app.app_template import views
 
 urlpatterns = [
+    path("admin/", admin.site.urls),
     path("", views.home, name="home"),
+    path('<slug:category_slug>/', views.home,
+         name='category'),
     path("login/", views.login, name="login"),
     path("signup/", views.signup, name="signup"),
     path("profile/", views.profile, name="profile"),
-    path("admin/", admin.site.urls),
+
+
 ]
 
 handler404 = "app.app_template.views.page_not_found"
